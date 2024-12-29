@@ -52,7 +52,9 @@ The only way I found to fix it, just add:
 ```ts
 locales: ['en', 'ua'],
 ```
-to the [`nuxt.config.ts`](https://github.com/serhii-chernenko/nuxt-i18n-issue/blob/main/nuxt.config.ts#L13) but it doesn't make sense because it's still hardcoded anyway. 
+to the [`nuxt.config.ts`](https://github.com/serhii-chernenko/nuxt-i18n-issue/blob/main/nuxt.config.ts#L13):
+![image](https://github.com/user-attachments/assets/1cd04086-908c-491a-897b-6dd12d6dbfca)
+![image](https://github.com/user-attachments/assets/0ba93dee-d130-4717-9350-e986ea0602d4)
 
-I want to make `strategy: prefix` working when the whole functionality is dynamic and fetched from the API endpoint (from DB in general).
+But it doesn't make sense because it's still hardcoded anyway. I want to make `strategy: prefix` working when the whole functionality is dynamic and fetched from the API endpoint (from DB in general).
 
