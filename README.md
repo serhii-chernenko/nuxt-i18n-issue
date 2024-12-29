@@ -1,75 +1,58 @@
-# Nuxt Minimal Starter
+# Nuxt i18n dynamic locales issue explanation
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+The main goal I want to achieve is fetching locales setup from a DB.
 
-## Setup
-
-Make sure to install dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+I have the languages API endpoint [`languages.get.ts`](https://github.com/serhii-chernenko/nuxt-i18n-issue/blob/main/server/api/languages.get.ts):
+```ts
+export default defineEventHandler(() => {
+  return {
+    fallbackLocale: 'en',
+    locales: [
+        { code: 'en', name: 'English' },
+        { code: 'ua', name: 'Ukrainian' }
+    ],
+    messages: {
+        en: {
+          home: 'Home',
+          about: 'About Us'
+        },
+        ua: {
+          home: 'Головна',
+          about: 'Про нас'
+        }
+    },
+  };
+});
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+The data is fetched in [`i18n.config.ts`](https://github.com/serhii-chernenko/nuxt-i18n-issue/blob/main/i18n.config.ts):
+```ts
+export default defineI18nConfig(async () => {
+    return await $fetch('/api/languages');
+})
 ```
 
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+The file is imported via [`nuxt.config.ts`](https://github.com/serhii-chernenko/nuxt-i18n-issue/blob/main/nuxt.config.ts):
+```ts
+export default defineNuxtConfig({
+  i18n: {
+    strategy: 'prefix',
+    defaultLocale: 'en',
+    vueI18n: './i18n.config.ts',
+    // locales: ['en', 'ua'],
+  }
+})
 ```
 
-Locally preview production build:
+As a result, translations work as expected but `strategy: prefix` is not. `en` and `ua` locale code is not included to the URL. 
+![image](https://github.com/user-attachments/assets/7832c9ea-d94b-40ea-a565-59c7ea80206b)
+![image](https://github.com/user-attachments/assets/64414a9e-d05a-4d67-9893-b939019f6256)
 
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
+The only way I found to fix it, just add:
+```ts
+locales: ['en', 'ua'],
 ```
+to the [`nuxt.config.ts`](https://github.com/serhii-chernenko/nuxt-i18n-issue/blob/main/nuxt.config.ts#L13) but it doesn't make sense because it's still hardcoded anyway. 
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+I want to make `strategy: prefix` working when the whole functionality is dynamic and fetched from the API endpoint (from DB in general).
+
