@@ -1,5 +1,9 @@
 # Nuxt i18n dynamic locales issue explanation
 
+Created issue: https://github.com/nuxt-modules/i18n/issues/3288
+
+<hr/>
+
 The main goal I want to achieve is fetching locales' setup from a DB.
 
 I have the languages API endpoint [`languages.get.ts`](https://github.com/serhii-chernenko/nuxt-i18n-issue/blob/main/server/api/languages.get.ts):
