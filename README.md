@@ -1,6 +1,6 @@
 # Nuxt i18n dynamic locales issue explanation
 
-The main goal I want to achieve is fetching locales setup from a DB.
+The main goal I want to achieve is fetching locales' setup from a DB.
 
 I have the languages API endpoint [`languages.get.ts`](https://github.com/serhii-chernenko/nuxt-i18n-issue/blob/main/server/api/languages.get.ts):
 ```ts
@@ -44,7 +44,7 @@ export default defineNuxtConfig({
 })
 ```
 
-As a result, translations work as expected but `strategy: prefix` is not. `en` and `ua` locale code is not included to the URL. 
+As a result, translations work as expected, but `strategy: prefix` is not. `en` and `ua` locale codes are not included in the URL. 
 ![image](https://github.com/user-attachments/assets/7832c9ea-d94b-40ea-a565-59c7ea80206b)
 ![image](https://github.com/user-attachments/assets/64414a9e-d05a-4d67-9893-b939019f6256)
 
