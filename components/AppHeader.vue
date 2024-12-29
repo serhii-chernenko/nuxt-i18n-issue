@@ -4,8 +4,7 @@
             <NuxtLinkLocale to="/">{{ $t('home') }}</NuxtLinkLocale>
         </li>
         <li>
-            <NuxtLinkLocale to="about">{{ $t('about') }}</NuxtLinkLocale>
-            <!-- <NuxtLink :to="localePath('about')">{{ $t('about') }}</NuxtLink> -->
+            <NuxtLinkLocale to="/about">{{ $t('about') }}</NuxtLinkLocale>
         </li>
     </ul>
     <button @click="setLocale('en')">en</button>
